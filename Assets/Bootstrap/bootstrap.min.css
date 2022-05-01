@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<!-- CSRF Token -->
+<meta name="csrf-token" content="nJmzH6j5jadGmDnGSBweSF44mZuwsXhOjogsSQI5">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name='robots' content="index, follow, all">
+
+
+<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico'>
+<link rel="manifest" href="/mix-manifest.json?v=4">
+<meta name="theme-color" content="#FFF">
+<!-- Windows Phone -->
+<meta name="msapplication-starturl" content="/">
+<meta name="msapplication-TileColor" content="#FFF">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-title" content="Sayna">
+<link rel="apple-touch-icon" href="http://sayna.academy/store/1/favicon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<!-- Android -->
+<link rel='icon' href='http://sayna.academy/store/1/favicon.svg'>
+<meta name="application-name" content="Sayna">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Other -->
+<meta name="layoutmode" content="fitscreen/standard">
+<link rel="home" href="http://sayna.academy">
+
+<!-- Open Graph -->
+<meta property='og:title' content='Page not found'>
+<meta name='twitter:card' content='summary'>
+<meta name='twitter:title' content='Page not found'>
+
+<meta property='og:site_name' content='http://sayna.academy/Sayna'>
+<meta property='og:image' content='http://sayna.academy/store/1/favicon.svg'>
+<meta name='twitter:image' content='http://sayna.academy/store/1/favicon.svg'>
+<meta property='og:locale' content='http://sayna.academy/en_US'>
+<meta property='og:type' content='website'>
+
+    <title>Page not found | Sayna</title>
+
+    <!-- General CSS File -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link href="/assets/default/css/font.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/default/vendors/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/default/vendors/toast/jquery.toast.min.css">
+    <link rel="stylesheet" href="/assets/default/vendors/simplebar/simplebar.css">
+    <link rel="stylesheet" href="/assets/default/css/app.css">
+    <link rel="stylesheet" href="/assets/default/css/style.css">
+
+    
+        
+    <style>
+        
+    </style>
+
+
+            <script src="/assets/default/vendors/pace-loading/pace.min.js"></script>
+    </head>
+
+<body class="">
+
+<div id="app" style="background-color: #211d2e; ">
+
+    
+
+        
+    <section class="my-50 container text-center">
+        <div class="row justify-content-md-center">
+            <div class="col col-md-6">
+                <img src="/store/1/default_images/404.svg" class="img-cover " alt="">
+            </div>
+        </div>
+
+        <h2 class="mt-25 font-36">404 - Page not found!</h2>
+        <p class="mt-25 font-16">Le lien sélectionné n&#039;existe pas et pourrait être supprimé. Essayez un lien valide.</p>
+    </section>
+
+    
+</div>
+<!-- Template JS File -->
+<script src="/assets/default/js/app.js"></script>
+<script src="/assets/default/vendors/feather-icons/dist/feather.min.js"></script>
+<script src="/assets/default/vendors/moment.min.js"></script>
+<script src="/assets/default/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="/assets/default/vendors/toast/jquery.toast.min.js"></script>
+<script type="text/javascript" src="/assets/default/vendors/simplebar/simplebar.min.js"></script>
+
+<script>
+    ;(function (){
+    'use strict'
+    var deleteAlertTitle = 'Are you sure?';
+    var deleteAlertHint = 'This action cannot be undone!';
+    var deleteAlertConfirm = 'Delete';
+    var deleteAlertCancel = 'Cancel';
+    var deleteAlertSuccess = 'Success';
+    var deleteAlertFail = 'Failed';
+    var deleteAlertFailHint = 'Error while deleting item!';
+    var deleteAlertSuccessHint = 'Item successfully deleted.';
+    }())
+</script>
+
+
+
+<script src="/assets/default/js/parts/main.min.js"></script>
+
+<script>
+    ;(function (){
+    'use strict'
+    
+    }())
+</script>
+</body>
+</html>
