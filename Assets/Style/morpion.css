@@ -117,7 +117,7 @@
         font-size: 1.5em;
       }
 
-      .you-score {
+      #youScore {
         text-align: right;
       }
 

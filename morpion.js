@@ -7,6 +7,22 @@ let tablGame = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 const player = "X";
 const computer = "O";
 let actifPlayer = player;
+// ------------- Compteur
+
+let tablScorePlayer = [0, " "];
+let tablScoreComputer = [0, " "];
+// --------- Score -----------
+let s = 0;
+function sumScore(tabl) {
+  for (let i = 0; i < tabl.length; i++) {
+    s = s + tabl[i];
+  }
+  return s;
+}
+
+// -------------------------
+
+// -----------------------------
 
 // ------------ WinTest : condition de victoire
 
@@ -20,8 +36,8 @@ let actifPlayer = player;
 // ["2 ", " 4", "6 "];
 // ["3 ", " 4", "5 "];
 // ["6 ", " 7", "8 "];
-
 /*let z = 0, u = 1, d = 2; */
+
 function winTest(z, u, d) {
   if (
     tablGame[z] == tablGame[u] &&
@@ -30,8 +46,13 @@ function winTest(z, u, d) {
   ) {
     console.log("You win !");
     document.getElementById("tourDeJeu").innerHTML =
-      '<div style="color: darkgreen">You win!</div>';
+      '<div style="color: darkgreen"> You win! </div>';
+    tablScorePlayer[1] = 1;
+    console.log(sumScore(tablScorePlayer));
+    document.getElementById("youScore").innerText =
+      sumScore(tablScorePlayer) - 1;
   }
+
   if (
     tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
@@ -39,7 +60,7 @@ function winTest(z, u, d) {
   ) {
     console.log("Computer win !");
     document.getElementById("tourDeJeu").innerHTML =
-      '<div style="color: darkred">Computer win!</div>';
+      '<div style="color: darkred"> Computer win! </div>';
     console.log(tablGame);
   }
 }
@@ -89,7 +110,6 @@ function reset() {
     items[i].textContent = " ";
     console.clear();
     tablGame.splice(0);
-    console.log(tablGame);
   }
   tablGame = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
   console.log(tablGame);
