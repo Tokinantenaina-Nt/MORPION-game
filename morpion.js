@@ -11,8 +11,8 @@ let gameOver = false;
 
 // ------------- Compteur de score -------------------
 
-let tablScorePlayer = [0, 0];
-let tablScoreComputer = [0, 0];
+let tablScorePlayer = [0, ""];
+let tablScoreComputer = [0, ""];
 let s = 0;
 
 function sumScore(tabl) {
@@ -55,16 +55,12 @@ function winTest(z, u, d) {
     tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
     tablGame[d] == player &&
-    gameOver == false &&
-    actifPlayer === computer
+    gameOver == false
   ) {
     console.log("You win !");
     document.getElementById("tourDeJeu").innerHTML =
       '<div style="color: darkgreen"> You win! </div>';
-    tablScorePlayer[1] = 1;
-    sumScore(tablScorePlayer);
-    console.log("score", s);
-    document.getElementById("youScore").innerText = s;
+
     return (gameOver = true);
   }
 
@@ -72,17 +68,12 @@ function winTest(z, u, d) {
     tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
     tablGame[d] == computer &&
-    gameOver == false &&
-    actifPlayer === player
+    gameOver == false
   ) {
     console.log("Computer win !");
     document.getElementById("tourDeJeu").innerHTML =
       '<div style="color: darkred"> Computer win! </div>';
-    console.log(tablGame);
-    tablScoreComputer[1] = 1;
-    sumScore(tablScoreComputer);
-    console.log("score", s);
-    document.getElementById("cpuScore").innerText = s;
+
     return (gameOver = true);
   }
 }
@@ -129,10 +120,23 @@ function choiseCase(id) {
     winTest(2, 4, 6);
     winTest(3, 4, 5);
     winTest(6, 7, 8);
-    gameStop();
-  }
-  if (gameOver == true) {
-    console.log(tablGame);
+    console.log(gameOver);
+    if (gameOver === true && actifPlayer === computer) {
+      console.log(tablGame);
+      tablScorePlayer[1] = 1;
+      sumScore(tablScorePlayer);
+      console.log("score", s);
+      document.getElementById("youScore").innerText = s;
+    }
+
+    if (gameOver === true && actifPlayer === player) {
+      console.log(tablGame);
+      tablScoreComputer[1] = 1;
+      sumScore(tablScoreComputer);
+      console.log(tablScorePlayer);
+      console.log("score", s);
+      document.getElementById("cpuScore").innerText = s;
+    }
   }
 }
 
