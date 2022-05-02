@@ -11,19 +11,18 @@ let gameOver = false;
 
 // ------------- Compteur de score -------------------
 
-let tablScorePlayer = [0, ""];
-let tablScoreComputer = [0, ""];
-let s = 0;
+let tablScorePlayer = [0, " "];
+let tablScoreComputer = [0, " "];
+let scorePlayer = 0;
+let scoreComputer = 0;
 
-function sumScore(tabl) {
-  if (gameOver == false) {
-    for (let i = 0; i < 2; i++) {
-      s = s + tabl[i];
-    }
-    // return s;
+function sumScore(tabl, s) {
+  for (let i = 0; i < tabl.length; i++) {
+    s = s + tabl[i];
   }
+  return s;
 }
-console.log(s);
+
 // -------------------------------------------------
 
 // ------------ WinTest : condition de victoire
@@ -38,18 +37,9 @@ console.log(s);
 // ["2 ", " 4", "6 "];
 // ["3 ", " 4", "5 "];
 // ["6 ", " 7", "8 "];
-/*let z = 0, u = 1, d = 2; */
-// ------------ Lancement du jeu
-
-// ---------------------------------
-//-------------- Game Stop ------
-function gameStop() {
-  if (gameOver == true) {
-    // alert("You win!");
-  }
-}
 
 //-------------Fonction de Test victoire----------------
+/*let z = 0, u = 1, d = 2; */ 0;
 function winTest(z, u, d) {
   if (
     tablGame[z] == tablGame[u] &&
@@ -59,7 +49,7 @@ function winTest(z, u, d) {
   ) {
     console.log("You win !");
     document.getElementById("tourDeJeu").innerHTML =
-      '<div style="color: darkgreen"> You win! </div>';
+      '<div style="color: darkgreen"> You win this turn! </div>';
 
     return (gameOver = true);
   }
@@ -72,7 +62,7 @@ function winTest(z, u, d) {
   ) {
     console.log("Computer win !");
     document.getElementById("tourDeJeu").innerHTML =
-      '<div style="color: darkred"> Computer win! </div>';
+      '<div style="color: red"> Computer win this turn! </div>';
 
     return (gameOver = true);
   }
@@ -88,18 +78,18 @@ function choiseCase(id) {
       "Attention , Cette case est déjà jouée!";
     setTimeout(() => {
       document.getElementById("dejaJouer").innerHTML = "";
-    }, 2000);
+    }, 2500);
     return;
   }
-  if (gameOver == true) {
+  if (gameOver === true) {
     document.getElementById("dejaJouer").innerHTML =
-      "Veuillez cliquer sur rejouer pour une autre partie ! ";
+      "Cliquer rejouer pour commencer une autre partie ! ";
     setTimeout(() => {
       document.getElementById("dejaJouer").innerHTML = "";
-    }, 2000);
+    }, 5000);
     return;
   }
-  if (gameOver == false) {
+  if (gameOver === false) {
     console.log(id);
     console.log(numCell, "est la cellule cliquée");
     tablGame[numCell] = actifPlayer;
@@ -121,27 +111,53 @@ function choiseCase(id) {
     winTest(3, 4, 5);
     winTest(6, 7, 8);
     console.log(gameOver);
+
     if (gameOver === true && actifPlayer === computer) {
       console.log(tablGame);
       tablScorePlayer[1] = 1;
-      sumScore(tablScorePlayer);
-      console.log("score", s);
-      document.getElementById("youScore").innerText = s;
+
+      console.log("tablScorePlayer", tablScorePlayer);
+      console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
+      sumScore(tablScorePlayer, scorePlayer);
+      document.getElementById("youScore").innerText = sumScore(
+        tablScorePlayer,
+        scorePlayer
+      );
+      tablScorePlayer[0] = sumScore(tablScorePlayer, scorePlayer);
     }
 
     if (gameOver === true && actifPlayer === player) {
       console.log(tablGame);
       tablScoreComputer[1] = 1;
-      sumScore(tablScoreComputer);
-      console.log(tablScorePlayer);
-      console.log("score", s);
-      document.getElementById("cpuScore").innerText = s;
+
+      console.log("tablScoreComputer", tablScoreComputer);
+      console.log("scoreComputer", sumScore(tablScoreComputer, scoreComputer));
+      sumScore(tablScoreComputer, scoreComputer);
+      document.getElementById("cpuScore").innerText = sumScore(
+        tablScoreComputer,
+        scoreComputer
+      );
+      tablScoreComputer[0] = sumScore(tablScoreComputer, scoreComputer);
     }
   }
+  // ---------------------- Match null --------------------------
+  let matchNull = true;
+  for (const cell of tablGame) {
+    if (cell === " ") {
+      matchNull = false;
+    }
+  }
+  if (matchNull == true) {
+    gameOver = true;
+    document.getElementById("tourDeJeu").innerHTML =
+      '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
+    console.log("tay");
+    return;
+  }
+  // ------------------------------------------------------------------
 }
 
 //Vide le contenu de toute les cases
-
 function reset() {
   let conf = function () {
     return confirm("Voulez-vous vraiment rejouer ?");
@@ -159,7 +175,8 @@ function reset() {
     document.getElementById("tourDeJeu").innerHTML = "";
     console.log(gameOver);
     gameOver = false;
-    console.log("score", s);
+
+    console.log("tablScoreComputer", tablScoreComputer);
   }
 }
 
