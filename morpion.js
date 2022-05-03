@@ -72,82 +72,102 @@ function winTest(z, u, d) {
 // Récupération des cases à clicker
 
 function choiseCase(id) {
-  let numCell = +id.match(/\d+/g).join("") - 1;
-  if (tablGame[numCell] != " " && gameOver == false) {
-    document.getElementById("dejaJouer").innerHTML =
-      "Attention , Cette case est déjà jouée!";
-    setTimeout(() => {
-      document.getElementById("dejaJouer").innerHTML = "";
-    }, 2500);
-    return;
-  }
-  if (gameOver === true) {
-    document.getElementById("dejaJouer").innerHTML =
-      "Cliquer rejouer pour commencer une autre partie ! ";
-    setTimeout(() => {
-      document.getElementById("dejaJouer").innerHTML = "";
-    }, 5000);
-    return;
-  }
-  if (gameOver === false) {
-    console.log(id);
-    console.log(numCell, "est la cellule cliquée");
-    tablGame[numCell] = actifPlayer;
-    //console.clear();
-
+  if (actifPlayer === player) {
+    let numCell = +id.match(/\d+/g).join("") - 1;
+    if (tablGame[numCell] != " " && gameOver == false) {
+      document.getElementById("dejaJouer").innerHTML =
+        "Attention , Cette case est déjà jouée!";
+      setTimeout(() => {
+        document.getElementById("dejaJouer").innerHTML = "";
+      }, 2500);
+      return;
+    }
+    if (gameOver === true) {
+      document.getElementById("dejaJouer").innerHTML =
+        "Cliquer rejouer pour commencer une autre partie ! ";
+      setTimeout(() => {
+        document.getElementById("dejaJouer").innerHTML = "";
+      }, 5000);
+      return;
+    }
+    if (gameOver === false) {
+      console.log(id);
+      console.log(numCell, "est la cellule cliquée");
+      tablGame[numCell] = actifPlayer;
+      //console.clear();
+    }
     document.getElementById(id).innerHTML = actifPlayer;
-
-    // ---------- Automatisation ------
-    // actifPlayer = actifPlayer === player ? computer : player;
-    // -------------------------------------
-    console.log(actifPlayer);
-    // if (actifPlayer === computer) {
-    let casePlay = Math.round(Math.random() * 10);
-    if (casePlay > 8) {
-      casePlay = 8;
-    }
-    console.log("mathrandom is", casePlay);
-    tablGame[casePlay] = computer;
-    console.log(tablGame);
-    // }
-
-    document.getElementById("tourDeJeu").innerHTML =
-      "C'est à votre tour de jouer";
-
-    winTest(0, 1, 2);
-    winTest(0, 3, 6);
-    winTest(0, 4, 8);
-    winTest(1, 4, 7);
-    winTest(2, 5, 8);
-    winTest(2, 4, 6);
-    winTest(3, 4, 5);
-    winTest(6, 7, 8);
-    console.log(tablGame);
-
-    if (gameOver === true && actifPlayer === computer) {
-      tablScorePlayer[1] = 1;
-
-      console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
-      sumScore(tablScorePlayer, scorePlayer);
-      document.getElementById("youScore").innerText = sumScore(
-        tablScorePlayer,
-        scorePlayer
-      );
-      tablScorePlayer[0] = sumScore(tablScorePlayer, scorePlayer);
-    }
-
-    if (gameOver === true && actifPlayer === player) {
-      tablScoreComputer[1] = 1;
-
-      console.log("scoreComputer", sumScore(tablScoreComputer, scoreComputer));
-      sumScore(tablScoreComputer, scoreComputer);
-      document.getElementById("cpuScore").innerText = sumScore(
-        tablScoreComputer,
-        scoreComputer
-      );
-      tablScoreComputer[0] = sumScore(tablScoreComputer, scoreComputer);
-    }
   }
+  // ---------- Automatisation ------
+  // actifPlayer = actifPlayer === player ? computer : player;
+  // -------------------------------------
+  actifPlayer = computer;
+  while (actifPlayer === computer) {
+    console.log(actifPlayer);
+
+    function chooseCasePlay() {
+      r = Math.round(Math.random() * 10);
+      if (r > 8) {
+        r = 8;
+      }
+      return r;
+    }
+    chooseCasePlay();
+
+    console.log("computer joue: ", r);
+
+    function caseAlreadyPlayed() {
+      if (tablGame[r] === player || tablGame[r] === computer) {
+        chooseCasePlay();
+      }
+      console.log("computer joue: ", r);
+    }
+    caseAlreadyPlayed();
+
+    if (tablGame[r] === " ") {
+      tablGame[r] = computer;
+    }
+    actifPlayer = player;
+  }
+  // ------------------------------------
+  document.getElementById("tourDeJeu").innerHTML =
+    "C'est à votre tour de jouer";
+  // --------------- Test de victoire -----------------
+  winTest(0, 1, 2);
+  winTest(0, 3, 6);
+  winTest(0, 4, 8);
+  winTest(1, 4, 7);
+  winTest(2, 5, 8);
+  winTest(2, 4, 6);
+  winTest(3, 4, 5);
+  winTest(6, 7, 8);
+  console.log(tablGame);
+
+  // ----------------- Affichage ------------------
+  if (gameOver === true && actifPlayer === player) {
+    tablScorePlayer[1] = 1;
+    console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
+    sumScore(tablScorePlayer, scorePlayer);
+    document.getElementById("youScore").innerText = sumScore(
+      tablScorePlayer,
+      scorePlayer
+    );
+    console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
+    tablScorePlayer[0] = sumScore(tablScorePlayer, scorePlayer);
+  }
+
+  if (gameOver === true && actifPlayer === computer) {
+    tablScoreComputer[1] = 1;
+
+    console.log("scoreComputer", sumScore(tablScoreComputer, scoreComputer));
+    sumScore(tablScoreComputer, scoreComputer);
+    document.getElementById("cpuScore").innerText = sumScore(
+      tablScoreComputer,
+      scoreComputer
+    );
+    tablScoreComputer[0] = sumScore(tablScoreComputer, scoreComputer);
+  }
+
   // ---------------------- Match null --------------------------
   let matchNull = true;
   for (const cell of tablGame) {
@@ -183,7 +203,8 @@ function reset() {
     console.log(gameOver);
     gameOver = false;
   }
-  //console.clear();
+
+  console.clear();
 }
 
 console.log("ok");
