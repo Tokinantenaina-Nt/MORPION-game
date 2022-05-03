@@ -95,9 +95,21 @@ function choiseCase(id) {
     tablGame[numCell] = actifPlayer;
     //console.clear();
 
-    console.log("avant test");
     document.getElementById(id).innerHTML = actifPlayer;
-    actifPlayer = actifPlayer === player ? computer : player;
+
+    // ---------- Automatisation ------
+    // actifPlayer = actifPlayer === player ? computer : player;
+    // -------------------------------------
+    console.log(actifPlayer);
+    // if (actifPlayer === computer) {
+    let casePlay = Math.round(Math.random() * 10);
+    if (casePlay > 8) {
+      casePlay = 8;
+    }
+    console.log("mathrandom is", casePlay);
+    tablGame[casePlay] = computer;
+    console.log(tablGame);
+    // }
 
     document.getElementById("tourDeJeu").innerHTML =
       "C'est à votre tour de jouer";
@@ -110,13 +122,11 @@ function choiseCase(id) {
     winTest(2, 4, 6);
     winTest(3, 4, 5);
     winTest(6, 7, 8);
-    console.log(gameOver);
+    console.log(tablGame);
 
     if (gameOver === true && actifPlayer === computer) {
-      console.log(tablGame);
       tablScorePlayer[1] = 1;
 
-      console.log("tablScorePlayer", tablScorePlayer);
       console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
       sumScore(tablScorePlayer, scorePlayer);
       document.getElementById("youScore").innerText = sumScore(
@@ -127,10 +137,8 @@ function choiseCase(id) {
     }
 
     if (gameOver === true && actifPlayer === player) {
-      console.log(tablGame);
       tablScoreComputer[1] = 1;
 
-      console.log("tablScoreComputer", tablScoreComputer);
       console.log("scoreComputer", sumScore(tablScoreComputer, scoreComputer));
       sumScore(tablScoreComputer, scoreComputer);
       document.getElementById("cpuScore").innerText = sumScore(
@@ -151,7 +159,7 @@ function choiseCase(id) {
     gameOver = true;
     document.getElementById("tourDeJeu").innerHTML =
       '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
-    console.log("tay");
+
     return;
   }
   // ------------------------------------------------------------------
@@ -167,7 +175,6 @@ function reset() {
     for (var i = 0; i < items.length; i++) {
       console.log(items[i]);
       items[i].textContent = " ";
-      //console.clear();
     }
     tablGame = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
     console.log(tablGame);
@@ -175,9 +182,8 @@ function reset() {
     document.getElementById("tourDeJeu").innerHTML = "";
     console.log(gameOver);
     gameOver = false;
-
-    console.log("tablScoreComputer", tablScoreComputer);
   }
+  //console.clear();
 }
 
 console.log("ok");
