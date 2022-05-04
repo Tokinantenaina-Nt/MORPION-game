@@ -96,20 +96,21 @@ function choiseCase(id) {
       tablGame[numCell] = actifPlayer;
       //console.clear();
     }
-    document.getElementById(id).innerHTML = actifPlayer;
+    document.getElementById(id).innerHTML = player;
   }
   // ---------- Automatisation ------
   // actifPlayer = actifPlayer === player ? computer : player;
   // -------------------------------------
   actifPlayer = computer;
   while (actifPlayer === computer) {
-    console.log(actifPlayer);
+    console.log("actifPlayer ", actifPlayer);
 
     function chooseCasePlay() {
       r = Math.round(Math.random() * 10);
-      if (r > 8) {
-        r = 8;
+      if (r > 9) {
+        r = 9;
       }
+
       return r;
     }
     chooseCasePlay();
@@ -127,8 +128,12 @@ function choiseCase(id) {
     if (tablGame[r] === " ") {
       tablGame[r] = computer;
     }
+
     actifPlayer = player;
   }
+
+  document.getElementById("item" + r).innerHTML = computer;
+
   // ------------------------------------
   document.getElementById("tourDeJeu").innerHTML =
     "C'est à votre tour de jouer";
@@ -170,17 +175,19 @@ function choiseCase(id) {
 
   // ---------------------- Match null --------------------------
   let matchNull = true;
-  for (const cell of tablGame) {
-    if (cell === " ") {
-      matchNull = false;
+  if (gameOver === true) {
+    for (const cell of tablGame) {
+      if (cell === " ") {
+        matchNull = false;
+      }
     }
-  }
-  if (matchNull == true) {
-    gameOver = true;
-    document.getElementById("tourDeJeu").innerHTML =
-      '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
+    if (matchNull == true) {
+      gameOver = true;
+      document.getElementById("tourDeJeu").innerHTML =
+        '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
 
-    return;
+      return;
+    }
   }
   // ------------------------------------------------------------------
 }
