@@ -39,12 +39,12 @@ function sumScore(tabl, s) {
 // ["6 ", " 7", "8 "];
 
 //-------------Fonction de Test victoire----------------
-/*let z = 0, u = 1, d = 2; */ 0;
-function winTest(z, u, d) {
+/*let u = 1, d = 2; t = 3 */
+function winTest(u, d, t) {
   if (
-    tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
-    tablGame[d] == player &&
+    tablGame[d] == tablGame[t] &&
+    tablGame[t] == player &&
     gameOver == false
   ) {
     console.log("You win !");
@@ -55,9 +55,9 @@ function winTest(z, u, d) {
   }
 
   if (
-    tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
-    tablGame[d] == computer &&
+    tablGame[d] == tablGame[t] &&
+    tablGame[t] == computer &&
     gameOver == false
   ) {
     console.log("Computer win !");
@@ -73,7 +73,7 @@ function winTest(z, u, d) {
 
 function choiseCase(id) {
   if (actifPlayer === player) {
-    let numCell = +id.match(/\d+/g).join("") - 1;
+    let numCell = +id.match(/\d+/g).join("");
     if (tablGame[numCell] != " " && gameOver == false) {
       document.getElementById("dejaJouer").innerHTML =
         "Attention , Cette case est déjà jouée!";
@@ -138,14 +138,14 @@ function choiseCase(id) {
   document.getElementById("tourDeJeu").innerHTML =
     "C'est à votre tour de jouer";
   // --------------- Test de victoire -----------------
-  winTest(0, 1, 2);
-  winTest(0, 3, 6);
-  winTest(0, 4, 8);
+  winTest(1, 2, 3);
   winTest(1, 4, 7);
+  winTest(1, 5, 9);
   winTest(2, 5, 8);
-  winTest(2, 4, 6);
-  winTest(3, 4, 5);
-  winTest(6, 7, 8);
+  winTest(3, 6, 9);
+  winTest(3, 5, 7);
+  winTest(4, 5, 6);
+  winTest(7, 8, 9);
   console.log(tablGame);
 
   // ----------------- Affichage ------------------
