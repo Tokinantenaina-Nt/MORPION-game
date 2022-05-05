@@ -8,7 +8,8 @@ const player = "X";
 const computer = "O";
 let actifPlayer = player;
 let gameOver = false;
-
+let win = " ";
+let turn = 0;
 // ------------- Compteur de score -------------------
 
 let tablScorePlayer = [0, " "];
@@ -39,32 +40,32 @@ function sumScore(tabl, s) {
 // ["6 ", " 7", "8 "];
 
 //-------------Fonction de Test victoire----------------
-/*let u = 1, d = 2; t = 3 */
-function winTest(u, d, t) {
+/*let z= 0, u = 1, d = 2; t = 3 */
+function winTest(z, u, d) {
   if (
+    tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
-    tablGame[d] == tablGame[t] &&
-    tablGame[t] == player &&
+    tablGame[d] == player &&
     gameOver == false
   ) {
     console.log("You win !");
     document.getElementById("tourDeJeu").innerHTML =
       '<div style="color: darkgreen"> You win this turn! </div>';
 
-    return (gameOver = true);
+    return (gameOver = true), (win = player);
   }
 
   if (
+    tablGame[z] == tablGame[u] &&
     tablGame[u] == tablGame[d] &&
-    tablGame[d] == tablGame[t] &&
-    tablGame[t] == computer &&
+    tablGame[d] == computer &&
     gameOver == false
   ) {
     console.log("Computer win !");
     document.getElementById("tourDeJeu").innerHTML =
       '<div style="color: red"> Computer win this turn! </div>';
 
-    return (gameOver = true);
+    return (gameOver = true), (win = computer);
   }
 }
 //---------------------------------------------------------------
@@ -72,6 +73,7 @@ function winTest(u, d, t) {
 // Récupération des cases à clicker
 
 function choiseCase(id) {
+  turn++;
   if (actifPlayer === player) {
     let numCell = +id.match(/\d+/g).join("");
     if (tablGame[numCell] != " " && gameOver == false) {
@@ -92,7 +94,7 @@ function choiseCase(id) {
     }
     if (gameOver === false) {
       console.log(id);
-      console.log(numCell, "est la cellule cliquée");
+      console.log("item", numCell, "est la cellule cliquée");
       tablGame[numCell] = actifPlayer;
       //console.clear();
     }
@@ -107,49 +109,50 @@ function choiseCase(id) {
 
     function chooseCasePlay() {
       r = Math.round(Math.random() * 10);
-      if (r > 9) {
-        r = 9;
+      if (r > 8) {
+        r = 8;
       }
 
       return r;
     }
     chooseCasePlay();
 
-    console.log("computer joue: ", r);
+    console.log("computer joue: ", "item", r);
 
     function caseAlreadyPlayed() {
-      if (tablGame[r] === player || tablGame[r] === computer) {
+      while (turn < 5 && tablGame[r] !== " ") {
         chooseCasePlay();
+        console.log("mandalo ato");
       }
-      console.log("computer joue: ", r);
+      console.log("computer rejoue: ", "item", r);
     }
     caseAlreadyPlayed();
 
     if (tablGame[r] === " ") {
       tablGame[r] = computer;
+      document.getElementById("item" + r).innerHTML = computer;
     }
 
     actifPlayer = player;
   }
-
-  document.getElementById("item" + r).innerHTML = computer;
-
   // ------------------------------------
   document.getElementById("tourDeJeu").innerHTML =
     "C'est à votre tour de jouer";
-  // --------------- Test de victoire -----------------
-  winTest(1, 2, 3);
+  // ---------------- Test de victoire -----------------
+  winTest(0, 1, 2);
+  winTest(0, 3, 6);
+  winTest(0, 4, 8);
   winTest(1, 4, 7);
-  winTest(1, 5, 9);
   winTest(2, 5, 8);
-  winTest(3, 6, 9);
-  winTest(3, 5, 7);
-  winTest(4, 5, 6);
-  winTest(7, 8, 9);
+  winTest(2, 4, 6);
+  winTest(3, 4, 5);
+  winTest(6, 7, 8);
   console.log(tablGame);
+  // -----------------------------------------------------
+  // ----------------- Affichage & score------------------
 
-  // ----------------- Affichage ------------------
-  if (gameOver === true && actifPlayer === player) {
+  // if (gameOver === true && actifPlayer === player)
+  if (gameOver === true && win === player) {
     tablScorePlayer[1] = 1;
     console.log("scorePlayer", sumScore(tablScorePlayer, scorePlayer));
     sumScore(tablScorePlayer, scorePlayer);
@@ -161,7 +164,8 @@ function choiseCase(id) {
     tablScorePlayer[0] = sumScore(tablScorePlayer, scorePlayer);
   }
 
-  if (gameOver === true && actifPlayer === computer) {
+  // if (gameOver === true && actifPlayer === computer)
+  if (gameOver === true && win === computer) {
     tablScoreComputer[1] = 1;
 
     console.log("scoreComputer", sumScore(tablScoreComputer, scoreComputer));
@@ -189,7 +193,8 @@ function choiseCase(id) {
       return;
     }
   }
-  // ------------------------------------------------------------------
+
+  console.log(turn); // ------------------------------------------------------------------
 }
 
 //Vide le contenu de toute les cases
@@ -210,7 +215,7 @@ function reset() {
     console.log(gameOver);
     gameOver = false;
   }
-
+  turn = 0;
   console.clear();
 }
 
