@@ -6,10 +6,11 @@ let game = true;
 let tablGame = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 const player = "X";
 const computer = "O";
-let actifPlayer = player;
+let actifPlayer = computer;
 let gameOver = false;
 let win = " ";
 let turn = 0;
+let startGame = 0;
 // ------------- Compteur de score -------------------
 
 let tablScorePlayer = [0, " "];
@@ -23,8 +24,6 @@ function sumScore(tabl, s) {
   }
   return s;
 }
-
-// -------------------------------------------------
 
 // ------------ WinTest : condition de victoire
 
@@ -40,6 +39,7 @@ function sumScore(tabl, s) {
 // ["6 ", " 7", "8 "];
 
 //-------------Fonction de Test victoire----------------
+
 /*let z= 0, u = 1, d = 2; t = 3 */
 function winTest(z, u, d) {
   if (
@@ -69,6 +69,40 @@ function winTest(z, u, d) {
   }
 }
 //---------------------------------------------------------------
+// ----------- Alternance du tour ----------
+
+while (actifPlayer === computer && gameOver === false) {
+  console.log("actifPlayer ", actifPlayer);
+
+  function chooseCasePlay() {
+    r = Math.round(Math.random() * 10);
+    if (r > 8) {
+      r = 8;
+    }
+
+    return r;
+  }
+  chooseCasePlay();
+
+  console.log("computer joue: ", "item", r);
+
+  function caseAlreadyPlayed() {
+    while (turn < 5 && tablGame[r] !== " ") {
+      chooseCasePlay();
+      console.log("mandalo ato");
+    }
+    console.log("computer rejoue: ", "item", r);
+  }
+  caseAlreadyPlayed();
+
+  if (tablGame[r] === " ") {
+    tablGame[r] = computer;
+    document.getElementById("item" + r).innerHTML = computer;
+  }
+
+  actifPlayer = player;
+}
+// -----------------------------------------
 
 // Récupération des cases à clicker
 
@@ -103,8 +137,10 @@ function choiseCase(id) {
   // ---------- Automatisation ------
   // actifPlayer = actifPlayer === player ? computer : player;
   // -------------------------------------
+
   actifPlayer = computer;
-  while (actifPlayer === computer) {
+
+  while (actifPlayer === computer && gameOver === false) {
     console.log("actifPlayer ", actifPlayer);
 
     function chooseCasePlay() {
@@ -135,9 +171,9 @@ function choiseCase(id) {
 
     actifPlayer = player;
   }
-  // ------------------------------------
   document.getElementById("tourDeJeu").innerHTML =
     "C'est à votre tour de jouer";
+
   // ---------------- Test de victoire -----------------
   winTest(0, 1, 2);
   winTest(0, 3, 6);
@@ -148,7 +184,56 @@ function choiseCase(id) {
   winTest(3, 4, 5);
   winTest(6, 7, 8);
   console.log(tablGame);
+  console.log("turn is ", turn);
   // -----------------------------------------------------
+
+  // ---------------------- Match null --------------------------
+  let matchNull = false;
+  if (turn === 5) {
+    winTest(0, 1, 2);
+    winTest(0, 3, 6);
+    winTest(0, 4, 8);
+    winTest(1, 4, 7);
+    winTest(2, 5, 8);
+    winTest(2, 4, 6);
+    winTest(3, 4, 5);
+    winTest(6, 7, 8);
+    if (gameOver === false) {
+      matchNull = true;
+    }
+  }
+  if (turn === 4 && gameOver === false) {
+    winTest(0, 1, 2);
+    winTest(0, 3, 6);
+    winTest(0, 4, 8);
+    winTest(1, 4, 7);
+    winTest(2, 5, 8);
+    winTest(2, 4, 6);
+    winTest(3, 4, 5);
+    winTest(6, 7, 8);
+
+    let tablVide = 0;
+    let stablVide = 0;
+    for (let i = 0; i < tablGame.length; i++) {
+      if (tablGame[i] === " ") {
+        tablVide = 1;
+        stablVide = tablVide++;
+      }
+    }
+
+    if (gameOver === false && stablVide === 0) {
+      matchNull = true;
+    }
+  }
+
+  if (matchNull === true) {
+    gameOver = true;
+    document.getElementById("tourDeJeu").innerHTML =
+      '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
+
+    return;
+  }
+
   // ----------------- Affichage & score------------------
 
   // if (gameOver === true && actifPlayer === player)
@@ -176,25 +261,6 @@ function choiseCase(id) {
     );
     tablScoreComputer[0] = sumScore(tablScoreComputer, scoreComputer);
   }
-
-  // ---------------------- Match null --------------------------
-  let matchNull = true;
-  if (gameOver === true) {
-    for (const cell of tablGame) {
-      if (cell === " ") {
-        matchNull = false;
-      }
-    }
-    if (matchNull == true) {
-      gameOver = true;
-      document.getElementById("tourDeJeu").innerHTML =
-        '<div style="color: darkgreen"> "Le match est null, rejouer !"</div>';
-
-      return;
-    }
-  }
-
-  console.log(turn); // ------------------------------------------------------------------
 }
 
 //Vide le contenu de toute les cases
@@ -216,7 +282,45 @@ function reset() {
     gameOver = false;
   }
   turn = 0;
-  console.clear();
+  //console.clear();
+  startGame++;
+  console.log("Startgame apres reset is", startGame);
+  if (startGame % 2 === 0) {
+    actifPlayer = computer;
+  }
+  // ----------- Alternance du tour ----------
+
+  while (actifPlayer === computer && gameOver === false) {
+    console.log("actifPlayer ", actifPlayer);
+
+    function chooseCasePlay() {
+      r = Math.round(Math.random() * 10);
+      if (r > 8) {
+        r = 8;
+      }
+
+      return r;
+    }
+    chooseCasePlay();
+
+    console.log("computer joue: ", "item", r);
+
+    function caseAlreadyPlayed() {
+      while (turn < 5 && tablGame[r] !== " ") {
+        chooseCasePlay();
+        console.log("mandalo ato");
+      }
+      console.log("computer rejoue: ", "item", r);
+    }
+    caseAlreadyPlayed();
+
+    if (tablGame[r] === " ") {
+      tablGame[r] = computer;
+      document.getElementById("item" + r).innerHTML = computer;
+    }
+
+    actifPlayer = player;
+  }
 }
 
 console.log("ok");
